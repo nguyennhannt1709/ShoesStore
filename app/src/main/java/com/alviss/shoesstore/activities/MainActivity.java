@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,9 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -122,9 +126,23 @@ public class MainActivity extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void showJSON(ArrayList<HangHoa> arr){
+    private void showJSON(final ArrayList<HangHoa> arr){
         HangHoaAdapter hangHoaAdapter = new HangHoaAdapter(arr, MainActivity.this);
         listView.setAdapter(hangHoaAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {Intent intent = new Intent(MainActivity.this,ShoesDetail.class);
+            intent.putExtra("ID",arr.get(position).getCODEM());
+            intent.putExtra("NAME",arr.get(position).getMNAME());
+            intent.putExtra("SHOP",arr.get(position).getMSHOPNAME());
+            intent.putExtra("PRICE",arr.get(position).getMPRICE());
+            intent.putExtra("SIZE",arr.get(position).getMSIZE());
+            intent.putExtra("INFOR",arr.get(position).getMINFO());
+            intent.putExtra("IMAGE",arr.get(position).getMIMAGE());
+            startActivity(intent);
+            }
+        });
     }
 
     public class QueryTask extends AsyncTask<Void, ArrayList<HangHoa>, ArrayList<HangHoa>> {
@@ -132,18 +150,33 @@ public class MainActivity extends BaseActivity {
 
         @Override
         protected ArrayList<HangHoa> doInBackground(Void... voids) {
-            return firebaseDatabase.getAllsHangHoa();
+            final ArrayList<HangHoa> arr = new ArrayList<>();
+
+            firebaseDatabase.HangHoa.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        arr.add(postSnapshot.getValue(HangHoa.class));
+                    }
+                    showJSON(arr);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return null;
         }
 
         @Override
         protected void onPostExecute(ArrayList<HangHoa> hangHoas) {
             super.onPostExecute(hangHoas);
-            showJSON(hangHoas);
         }
     }
 
     public class HangHoaAdapter extends BaseAdapter {
-        private ArrayList<HangHoa> arr;
+        private ArrayList<HangHoa> arr = new ArrayList<>();
         private Context context;
 
         public HangHoaAdapter(ArrayList<HangHoa> arr, Context context) {
@@ -168,8 +201,8 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
-            View listViewItem = layoutInflater.inflate(R.layout.shoes_list_item, null);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View listViewItem = inflater.inflate(R.layout.shoes_list_item, null, true);
 
             TextView textViewName = (TextView) listViewItem.findViewById(R.id.tv_shoename);
             TextView textViewShop = (TextView) listViewItem.findViewById(R.id.tv_shopname);
@@ -182,16 +215,8 @@ public class MainActivity extends BaseActivity {
             textViewShop.setText(arr.get(position).getMSHOPNAME());
             textViewSize.setText(arr.get(position).getMSIZE());
             Picasso.with(context).load(arr.get(position).getMIMAGE()).into(iv);
-//            Intent intent = new Intent(MainActivity.this,ShoesDetail.class);
-//            intent.putExtra("ID",shoesListAdapter.getsId(position));
-//            intent.putExtra("NAME",shoesListAdapter.getsName(position));
-//            intent.putExtra("SHOP",shoesListAdapter.getsShop(position));
-//            intent.putExtra("PRICE",shoesListAdapter.getsPrice(position));
-//            intent.putExtra("SIZE",shoesListAdapter.getsSize(position));
-//            intent.putExtra("INFOR",shoesListAdapter.getsInfor(position));
-//            intent.putExtra("IMAGE",shoesListAdapter.getsImage(position));
-//            startActivity(intent);
-            return null;
+
+            return listViewItem;
         }
     }
 

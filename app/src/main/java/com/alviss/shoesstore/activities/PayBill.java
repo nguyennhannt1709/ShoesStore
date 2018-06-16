@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
 import com.alviss.shoesstore.utils.MySession;
 
@@ -89,6 +90,7 @@ public class PayBill extends BaseActivity {
                 startActivity(intent);
 
                 firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
+                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
             }
         });
 

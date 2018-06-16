@@ -1,5 +1,7 @@
 package com.alviss.shoesstore.models;
 
+import java.util.ArrayList;
+
 public class HoaDon extends BaseModel {
     private String CODEB; //code bill
     private String BTIME; //ngay bill
