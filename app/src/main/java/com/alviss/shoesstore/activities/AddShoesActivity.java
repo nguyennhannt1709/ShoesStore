@@ -45,10 +45,7 @@ import static com.alviss.shoesstore.utils.Configuration.KEY_SHOENAME;
 import static com.alviss.shoesstore.utils.Configuration.KEY_SHOPNAME;
 import static com.alviss.shoesstore.utils.Configuration.KEY_SIZE;
 
-public class AddShoes extends AppCompatActivity implements View.OnClickListener {
-
-
-
+public class AddShoesActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextShoeName;
     private EditText editTextShopName;
@@ -58,7 +55,7 @@ public class AddShoes extends AppCompatActivity implements View.OnClickListener 
     private EditText editTextInfor;
     private ImageView imageViewShoeImage;
     private Button buttonAddShoes,buttonAddImage;
-     String shoesImage;
+    String shoesImage;
 
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -132,13 +129,13 @@ public class AddShoes extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public void onResponse(String response) {
                         loading.dismiss();
-                        Toast.makeText(AddShoes.this,response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddShoesActivity.this,response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(AddShoes.this,error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddShoesActivity.this,error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override

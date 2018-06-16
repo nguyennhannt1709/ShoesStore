@@ -9,7 +9,7 @@ import com.alviss.shoesstore.R;
  * Created by Alviss on 5/30/2018.
  */
 
-public class Infor extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

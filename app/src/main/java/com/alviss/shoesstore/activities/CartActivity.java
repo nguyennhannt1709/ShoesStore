@@ -18,7 +18,7 @@ import com.alviss.shoesstore.adapter.CartListAdapter;
  * Created by Alviss on 5/29/2018.
  */
 
-public class CartView extends Activity implements Recheck {
+public class CartActivity extends Activity implements Recheck {
 
     TextView summ;
 
@@ -31,7 +31,7 @@ public class CartView extends Activity implements Recheck {
         summ.setText(String.valueOf(MySession.sum));
 
         ListView listView = (ListView) findViewById(R.id.cart_list);
-        CartListAdapter adapter = new CartListAdapter(CartView.this,MySession.lid,MySession.lname,MySession.lprice,MySession.lsize,MySession.lpic,CartView.this);
+        CartListAdapter adapter = new CartListAdapter(CartActivity.this,MySession.lid,MySession.lname,MySession.lprice,MySession.lsize,MySession.lpic,CartActivity.this);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         Button btnpay = (Button) findViewById(R.id.btn_buy);
@@ -39,10 +39,10 @@ public class CartView extends Activity implements Recheck {
             @Override
             public void onClick(View view) {
                 if (MySession.count==0) {
-                    Toast.makeText(CartView.this,"Giỏ hàng của bạn chưa có sản phẩm",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CartActivity.this,"Giỏ hàng của bạn chưa có sản phẩm",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent intent = new Intent(CartView.this, PayBill.class);
+                    Intent intent = new Intent(CartActivity.this, PayBillActivity.class);
                     startActivity(intent);
                 }
             }

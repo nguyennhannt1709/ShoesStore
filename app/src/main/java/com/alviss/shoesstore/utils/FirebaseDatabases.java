@@ -6,18 +6,13 @@ import com.alviss.shoesstore.models.BaseModel;
 import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import static com.alviss.shoesstore.activities.PayBill.bName;
 
 public class FirebaseDatabases {
     public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

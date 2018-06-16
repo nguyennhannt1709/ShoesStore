@@ -3,7 +3,6 @@ package com.alviss.shoesstore.activities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +40,7 @@ import static com.alviss.shoesstore.utils.Configuration2.KEY_BSUM;
  * Created by Alviss on 5/29/2018.
  */
 
-public class PayBill extends BaseActivity {
+public class PayBillActivity extends BaseActivity {
     private EditText bname;
     private EditText bphone;
     private EditText badd;
@@ -85,8 +84,8 @@ public class PayBill extends BaseActivity {
                 MySession.lprice.clear();
                 MySession.lpic.clear();
 
-                Toast.makeText(PayBill.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(PayBill.this, MainActivity.class);
+                Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
 
                 firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));

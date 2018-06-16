@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Alviss on 5/27/2018.
  */
 
-public class ShoesDetail extends AppCompatActivity {
+public class ShoesDetailActivity extends AppCompatActivity {
     Spinner size;
 
     @Override
@@ -50,14 +50,14 @@ public class ShoesDetail extends AppCompatActivity {
         shop.setText(getIntent().getStringExtra("SHOP"));
         price.setText(getIntent().getStringExtra("PRICE"));
         infor.setText(getIntent().getStringExtra("INFOR"));
-        Picasso.with(ShoesDetail.this).load(getIntent().getStringExtra("IMAGE")).into(iv);
+        Picasso.with(ShoesDetailActivity.this).load(getIntent().getStringExtra("IMAGE")).into(iv);
 
         Button addcart =(Button) findViewById(R.id.btn_addtocart);
         addcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (size.getSelectedItem().toString().equals(" ")){
-                    Toast.makeText(ShoesDetail.this,"Chưa chọn size cần mua",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShoesDetailActivity.this,"Chưa chọn size cần mua",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     MySession.count++;
@@ -67,7 +67,7 @@ public class ShoesDetail extends AppCompatActivity {
                     MySession.lprice.add(getIntent().getStringExtra("PRICE"));
                     MySession.lpic.add(getIntent().getStringExtra("IMAGE"));
                     MySession.sum+=Integer.valueOf(getIntent().getStringExtra("PRICE").toString());
-                    Toast.makeText(ShoesDetail.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShoesDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                 }
             }
         });

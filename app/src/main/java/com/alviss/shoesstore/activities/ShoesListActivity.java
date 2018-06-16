@@ -27,11 +27,7 @@ import com.android.volley.toolbox.Volley;
 
 import static com.alviss.shoesstore.utils.Configuration.LIST_SHOES_URL;
 
-public class ShoesList extends AppCompatActivity {
-
-
-
-
+public class ShoesListActivity extends AppCompatActivity {
 
     private ListView listView;
 
@@ -40,11 +36,8 @@ public class ShoesList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shoes_list);
 
-
-
         listView = (ListView) findViewById(R.id.list_view);
         sendRequest();
-
     }
 
     private void sendRequest(){
@@ -63,7 +56,7 @@ public class ShoesList extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ShoesList.this,error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShoesListActivity.this,error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -88,7 +81,7 @@ public class ShoesList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ShoesList.this,ShoesDetail.class);
+                Intent intent = new Intent(ShoesListActivity.this,ShoesDetailActivity.class);
                 intent.putExtra("ID",shoesListAdapter.getsId(position));
                 intent.putExtra("NAME",shoesListAdapter.getsName(position));
                 intent.putExtra("SHOP",shoesListAdapter.getsShop(position));

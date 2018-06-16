@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alviss.shoesstore">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon_sneaker"
@@ -19,12 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddShoes"></activity>
-        <activity android:name=".activities.ShoesList"></activity>
-        <activity android:name=".activities.ShoesDetail"></activity>
-        <activity android:name=".activities.CartView"></activity>
-        <activity android:name=".activities.PayBill"></activity>
-        <activity android:name=".activities.Infor"></activity>
+        <activity android:name=".activities.AddShoes" />
+        <activity android:name=".activities.ShoesListActivity" />
+        <activity android:name=".activities.ShoesDetailActivity" />
+        <activity android:name=".activities.CartActivity" />
+        <activity android:name=".activities.PayBillActivity" />
+        <activity android:name=".activities.InfoActivity" />
+        <activity android:name=".activities.SplashScreenActivity"></activity>
     </application>
 
 </manifest>
