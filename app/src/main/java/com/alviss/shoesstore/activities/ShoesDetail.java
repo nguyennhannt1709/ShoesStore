@@ -1,4 +1,4 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.utils.MySession;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

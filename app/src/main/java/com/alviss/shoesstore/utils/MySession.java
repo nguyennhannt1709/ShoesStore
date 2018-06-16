@@ -1,4 +1,4 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.utils;
 
 import java.util.ArrayList;
 import java.util.List;

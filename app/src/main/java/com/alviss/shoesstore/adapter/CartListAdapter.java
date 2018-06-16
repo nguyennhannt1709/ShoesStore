@@ -1,4 +1,4 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.adapter;
 
 /**
  * Created by ADJ on 8/8/2017.
@@ -13,8 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.utils.Recheck;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

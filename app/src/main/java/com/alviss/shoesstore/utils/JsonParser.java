@@ -1,4 +1,4 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.utils;
 
 /**
  * Created by ADJ on 8/9/2017.
@@ -8,14 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.alviss.shoesstore.Configuration.KEY_ID;
-import static com.alviss.shoesstore.Configuration.KEY_IMAGE;
-import static com.alviss.shoesstore.Configuration.KEY_INFOR;
-import static com.alviss.shoesstore.Configuration.KEY_PRICE;
-import static com.alviss.shoesstore.Configuration.KEY_SHOENAME;
-import static com.alviss.shoesstore.Configuration.KEY_SHOES;
-import static com.alviss.shoesstore.Configuration.KEY_SHOPNAME;
-import static com.alviss.shoesstore.Configuration.KEY_SIZE;
+import static com.alviss.shoesstore.utils.Configuration.KEY_ID;
+import static com.alviss.shoesstore.utils.Configuration.KEY_IMAGE;
+import static com.alviss.shoesstore.utils.Configuration.KEY_INFOR;
+import static com.alviss.shoesstore.utils.Configuration.KEY_PRICE;
+import static com.alviss.shoesstore.utils.Configuration.KEY_SHOENAME;
+import static com.alviss.shoesstore.utils.Configuration.KEY_SHOES;
+import static com.alviss.shoesstore.utils.Configuration.KEY_SHOPNAME;
+import static com.alviss.shoesstore.utils.Configuration.KEY_SIZE;
 
 
 public class JsonParser {
@@ -36,7 +36,7 @@ public class JsonParser {
         this.json = json;
     }
 
-    protected void parseJSON(){
+    public void parseJSON(){
         JSONObject jsonObject=null;
         try {
             jsonObject = new JSONObject(json);

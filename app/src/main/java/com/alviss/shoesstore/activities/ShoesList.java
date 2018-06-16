@@ -1,18 +1,22 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.activities;
+
+/**
+ * Created by ADJ on 8/8/2017.
+ */
+
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.adapter.ShoesListAdapter;
+import com.alviss.shoesstore.utils.JsonParser;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,59 +25,28 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import static com.alviss.shoesstore.Configuration.LIST_SHOES_URL;
+import static com.alviss.shoesstore.utils.Configuration.LIST_SHOES_URL;
+
+public class ShoesList extends AppCompatActivity {
 
 
-public class MainActivity extends AppCompatActivity {
 
 
-    Toolbar toolbar;
-    ListView listView;
+
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.shoes_list);
 
-        setContentView(R.layout.activity_main);
 
 
-        // Attaching the layout to the toolbar object
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Setting toolbar as the ActionBar with setSupportActionBar() call
-        setSupportActionBar(toolbar);
-        if (MySession.count==-1){
-        MySession.count=0;
-        MySession.sum=0;
-        }
         listView = (ListView) findViewById(R.id.list_view);
         sendRequest();
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_cart) {
-            Intent intent = new Intent(MainActivity.this,CartView.class);
-            startActivity(intent);
-        }else if (id == R.id.action_infor){
-            Intent intent = new Intent(MainActivity.this,Infor.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
     private void sendRequest(){
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
 
@@ -81,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Log.e("null","ser image"+response);
+                       // Log.e("null","ser image"+response);
                         showJSON(response);
 
                         loading.dismiss();
@@ -90,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this,error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShoesList.this,error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -110,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
         JsonParser pj = new JsonParser(json);
         pj.parseJSON();
         //Log.e("uImage","ser image"+JsonParser.uImages[1]);
-        final ShoesListAdapter shoesListAdapter = new ShoesListAdapter(MainActivity.this, JsonParser.sIds,JsonParser.sShoenames,JsonParser.sShopnames, JsonParser.sPrices, JsonParser.sSizes, JsonParser.sInfors, JsonParser.sImages);
+        final ShoesListAdapter shoesListAdapter = new ShoesListAdapter(this, JsonParser.sIds,JsonParser.sShoenames,JsonParser.sShopnames, JsonParser.sPrices, JsonParser.sSizes, JsonParser.sInfors, JsonParser.sImages);
         listView.setAdapter(shoesListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this,ShoesDetail.class);
+                Intent intent = new Intent(ShoesList.this,ShoesDetail.class);
                 intent.putExtra("ID",shoesListAdapter.getsId(position));
                 intent.putExtra("NAME",shoesListAdapter.getsName(position));
                 intent.putExtra("SHOP",shoesListAdapter.getsShop(position));
@@ -128,5 +101,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-}
 
+
+    }

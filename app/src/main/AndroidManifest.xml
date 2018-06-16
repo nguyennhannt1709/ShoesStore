@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,12 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddShoes"></activity>
-        <activity android:name=".ShoesList"></activity>
-        <activity android:name=".ShoesDetail"></activity>
-        <activity android:name=".CartView"></activity>
-        <activity android:name=".PayBill"></activity>
-        <activity android:name=".Infor"></activity>
+        <activity android:name=".activities.AddShoes"></activity>
+        <activity android:name=".activities.ShoesList"></activity>
+        <activity android:name=".activities.ShoesDetail"></activity>
+        <activity android:name=".activities.CartView"></activity>
+        <activity android:name=".activities.PayBill"></activity>
+        <activity android:name=".activities.Infor"></activity>
     </application>
 
 </manifest>

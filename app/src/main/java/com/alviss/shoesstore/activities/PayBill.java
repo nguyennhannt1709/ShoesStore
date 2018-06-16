@@ -1,67 +1,39 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.activities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.utils.MySession;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static com.alviss.shoesstore.Configuration.ADD_SHOES_URL;
-import static com.alviss.shoesstore.Configuration.KEY_ID;
-import static com.alviss.shoesstore.Configuration.KEY_IMAGE;
-import static com.alviss.shoesstore.Configuration.KEY_INFOR;
-import static com.alviss.shoesstore.Configuration.KEY_PRICE;
-import static com.alviss.shoesstore.Configuration.KEY_SHOENAME;
-import static com.alviss.shoesstore.Configuration.KEY_SHOPNAME;
-import static com.alviss.shoesstore.Configuration.KEY_SIZE;
-import static com.alviss.shoesstore.Configuration2.ADD_BILL_URL;
-import static com.alviss.shoesstore.Configuration.KEY_ACTION;
-import static com.alviss.shoesstore.Configuration2.KEY_BNAME;
-import static com.alviss.shoesstore.Configuration2.KEY_BPHONE;
-import static com.alviss.shoesstore.Configuration2.KEY_BADD;
-import static com.alviss.shoesstore.Configuration2.KEY_BMAIL;
-import static com.alviss.shoesstore.Configuration2.KEY_BCONTENT;
-import static com.alviss.shoesstore.Configuration2.KEY_BSUM;
+import static com.alviss.shoesstore.utils.Configuration2.KEY_BNAME;
+import static com.alviss.shoesstore.utils.Configuration2.KEY_BPHONE;
+import static com.alviss.shoesstore.utils.Configuration2.KEY_BADD;
+import static com.alviss.shoesstore.utils.Configuration2.KEY_BMAIL;
+import static com.alviss.shoesstore.utils.Configuration2.KEY_BCONTENT;
+import static com.alviss.shoesstore.utils.Configuration2.KEY_BSUM;
 
 /**
  * Created by Alviss on 5/29/2018.
@@ -96,7 +68,7 @@ public class PayBill extends AppCompatActivity {
                 bPhone = bphone.getText().toString();
                 bAdd = badd.getText().toString();
                 bMail = bmail.getText().toString();
-                for (int i=0;i<MySession.count;i++){
+                for (int i = 0; i< MySession.count; i++){
                     bContent= bContent+MySession.lid.get(i).toString()+" "+MySession.lname.get(i).toString()+" "+MySession.lsize.get(i).toString()+" "+MySession.lprice.get(i).toString()+"\n";
                 }
                 bSum = String.valueOf(MySession.sum);

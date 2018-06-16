@@ -1,4 +1,4 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.utils;
 
 /**
  * Created by ADJ on 8/9/2017.

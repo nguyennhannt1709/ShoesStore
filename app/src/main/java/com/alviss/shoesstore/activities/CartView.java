@@ -1,19 +1,18 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.R.attr.id;
+import com.alviss.shoesstore.utils.MySession;
+import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.utils.Recheck;
+import com.alviss.shoesstore.adapter.CartListAdapter;
 
 /**
  * Created by Alviss on 5/29/2018.

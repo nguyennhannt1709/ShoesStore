@@ -1,4 +1,4 @@
-package com.alviss.shoesstore;
+package com.alviss.shoesstore.utils;
 
 /**
  * Created by Alviss on 5/29/2018.
