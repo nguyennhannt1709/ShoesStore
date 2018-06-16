@@ -3,19 +3,18 @@ package com.alviss.shoesstore.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.alviss.shoesstore.utils.JsonParser;
-import com.alviss.shoesstore.utils.MySession;
 import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.adapter.ShoesListAdapter;
+import com.alviss.shoesstore.utils.JsonParser;
+import com.alviss.shoesstore.utils.MySession;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,8 +26,7 @@ import com.android.volley.toolbox.Volley;
 import static com.alviss.shoesstore.utils.Configuration.LIST_SHOES_URL;
 
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends BaseActivity {
 
     Toolbar toolbar;
     ListView listView;
@@ -36,9 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
 
         // Attaching the layout to the toolbar object
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         }
         listView = (ListView) findViewById(R.id.list_view);
         sendRequest();
+
+        firebaseDatabase.readTest();
     }
 
     @Override
