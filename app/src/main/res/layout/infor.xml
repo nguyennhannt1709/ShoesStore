@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Các sản phẩm của app được hỗ trợ liên kết từ các shop sau:"
+        android:textAlignment="center"
+        android:textColor="#111"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="FootGear H"
+        android:textAlignment="center"
+        android:textColor="#002aff"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fb.com/footgearH/"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0973034751"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Athena Customs"
+        android:textAlignment="center"
+        android:textColor="#002aff"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fb.com/athena.customs/"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0903130702 - 0981867514"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Athena Customs"
+        android:textAlignment="center"
+        android:textColor="#002aff"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fb.com/alviss.customs/"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0981867514"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Gun Customs"
+        android:textAlignment="center"
+        android:textColor="#002aff"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fb.com/GuncustomsCustomgiay"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0903130702"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+</LinearLayout>
