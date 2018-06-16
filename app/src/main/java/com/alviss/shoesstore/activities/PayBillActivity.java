@@ -74,7 +74,9 @@ public class PayBillActivity extends BaseActivity {
                 bMail = bmail.getText().toString();
 
                 for (int i = 0; i< MySession.count; i++){
-                    bContent= bContent+MySession.lid.get(i).toString()+" "+MySession.lname.get(i).toString()+" "+MySession.lsize.get(i).toString()+" "+MySession.lprice.get(i).toString()+"\n";
+                    bContent= bContent+MySession.lid.get(i).toString()+" "+MySession.lname.get(i).toString()+" "+MySession.lsize.get(i).toString()+" "+
+                            MySession.lprice.get(i).toString()
+                            +"\n";
                 }
                 bSum = String.valueOf(MySession.sum);
                 new SendRequest().execute();

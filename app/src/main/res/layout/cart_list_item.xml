@@ -54,7 +54,6 @@
             android:id="@+id/tv_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
             android:text="TextView"
             android:textColor="#646566"
             android:textSize="13sp" />

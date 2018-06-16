@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.utils.Recheck;
+import com.alviss.shoesstore.utils.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class CartListAdapter extends ArrayAdapter<String> {
     private List<String> sImages;
     private Activity context;
     private Recheck layout;
+    Util util = new Util();
 
     public String getsId(int poisition){
         return sId.get(poisition);
@@ -78,11 +80,8 @@ public class CartListAdapter extends ArrayAdapter<String> {
 
 
         textViewName.setText(sShoenames.get(position));
-        textViewPrice.setText(sPrices.get(position));
+        textViewPrice.setText(util.formatToCurrency(sPrices.get(position)));
         textViewSize.setText(sSizes.get(position));
-       // Uri uri = Uri.parse(sImages(position));
-        //Uri uri = Uri.parse("https://drive.google.com/uc?id=0B___GhMLUVtOY09SbDU5cDU2T1U");
-       // draweeView.setImageURI(uri);
 
         Picasso.with(context).load(sImages.get(position)).into(iv);
 

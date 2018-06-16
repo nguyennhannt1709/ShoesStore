@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Alviss on 5/27/2018.
  */
 
-public class ShoesDetailActivity extends AppCompatActivity {
+public class ShoesDetailActivity extends BaseActivity {
     Spinner size;
 
     @Override
@@ -50,7 +50,7 @@ public class ShoesDetailActivity extends AppCompatActivity {
 
         name.setText(getIntent().getStringExtra("NAME"));
         shop.setText(getIntent().getStringExtra("SHOP"));
-        price.setText(getIntent().getStringExtra("PRICE"));
+        price.setText(util.formatToCurrency(getIntent().getStringExtra("PRICE"))+ " đ");
         infor.setText(getIntent().getStringExtra("INFOR"));
         Picasso.with(ShoesDetailActivity.this).load(getIntent().getStringExtra("IMAGE")).into(iv);
 

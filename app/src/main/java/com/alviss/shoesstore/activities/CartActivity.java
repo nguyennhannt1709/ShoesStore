@@ -19,7 +19,7 @@ import com.alviss.shoesstore.adapter.CartListAdapter;
  * Created by Alviss on 5/29/2018.
  */
 
-public class CartActivity extends Activity implements Recheck {
+public class CartActivity extends BaseActivity implements Recheck {
 
     TextView summ;
 
@@ -27,9 +27,9 @@ public class CartActivity extends Activity implements Recheck {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart);
-
+        getSupportActionBar().hide();
         summ = (TextView) findViewById(R.id.tv_sum);
-        summ.setText(String.valueOf(MySession.sum));
+        summ.setText(util.formatToCurrency(String.valueOf(MySession.sum))+ " đ");
 
         ListView listView = (ListView) findViewById(R.id.cart_list);
         CartListAdapter adapter = new CartListAdapter(CartActivity.this,MySession.lid,MySession.lname,MySession.lprice,MySession.lsize,MySession.lpic,CartActivity.this);

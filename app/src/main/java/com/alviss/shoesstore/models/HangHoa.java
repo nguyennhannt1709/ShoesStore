@@ -1,5 +1,9 @@
 package com.alviss.shoesstore.models;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.widget.ImageView;
+
 public class HangHoa extends BaseModel {
     private String CODEM;//code sp
     private String MNAME;//ten
@@ -14,6 +18,8 @@ public class HangHoa extends BaseModel {
     private String MSIZE;
     private String MIMAGE;
     private String MINFO;
+
+    public Bitmap cachedImage; //~> save cache
 
     public HangHoa(String CODEM, String MNAME, String MSHOPNAME, String MPRICE, String MSIZE,String MINFO, String MIMAGE) {
 
@@ -72,6 +78,7 @@ public class HangHoa extends BaseModel {
         this.MTYPE = MTYPE;
         this.MCOUNT = MCOUNT;
         this.MNOTE = MNOTE;
+
     }
 
     public String getCODEM() {
@@ -144,5 +151,10 @@ public class HangHoa extends BaseModel {
 
     public void setMNOTE(String MNOTE) {
         this.MNOTE = MNOTE;
+    }
+
+    public void imagesToBase64(ImageView imv) {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imv.getDrawable();
+        this.cachedImage = bitmapDrawable.getBitmap();
     }
 }
