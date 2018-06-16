@@ -10,9 +10,4 @@ import com.alviss.shoesstore.utils.FirebaseDatabases;
 
 public class BaseActivity extends AppCompatActivity {
     public static final FirebaseDatabases firebaseDatabase = new FirebaseDatabases();
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
 }

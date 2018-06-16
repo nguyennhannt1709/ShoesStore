@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public class MySession {
-    public static int count =-1;
+    public static int count = 0;
     public static List<String> lid = new ArrayList<String>();
     public static List<String> lname = new ArrayList<String>();
     public static List<String> lsize = new ArrayList<String>();

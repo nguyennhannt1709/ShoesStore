@@ -1,5 +1,6 @@
 package com.alviss.shoesstore.activities;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -55,6 +56,7 @@ public class PayBillActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payinfor);
+        setTitle("Checkout your cart");
 
         bname = (EditText) findViewById(R.id.tv_bname);
         badd = (EditText) findViewById(R.id.tv_badd);
@@ -65,6 +67,7 @@ public class PayBillActivity extends BaseActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 bName=bname.getText().toString();
                 bPhone = bphone.getText().toString();
                 bAdd = badd.getText().toString();

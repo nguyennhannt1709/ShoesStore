@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     android:weightSum="1">
 
     <LinearLayout
@@ -33,187 +34,202 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.07"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Tên:"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/out_shoesname"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:hint="Shoe Name"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/out_photo"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/out_id"
-            tools:layout_constraintBottom_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1" />
-    </LinearLayout>
+            android:layout_height="35dp"
+            android:layout_weight="0.07"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.07"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="left"
+                android:inputType="textPersonName"
+                android:text="Tên:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Shop bán:"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/out_shoesname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:hint="Shoe Name"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/out_photo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/out_id"
+                tools:layout_constraintBottom_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/out_shopname"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Shop Name"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/out_photo"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/out_id"
-            tools:layout_constraintBottom_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:layout_height="35dp"
+            android:layout_weight="0.07"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="left"
+                android:inputType="textPersonName"
+                android:text="Shop bán:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.07"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/out_shopname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="right"
+                android:hint="Shop Name"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/out_photo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/out_id"
+                tools:layout_constraintBottom_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Giá:"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/out_price"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Price"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/out_photo"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/out_id"
-            tools:layout_constraintBottom_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:layout_height="35dp"
+            android:layout_weight="0.07"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="left"
+                android:inputType="textPersonName"
+                android:text="Giá:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.07"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/out_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="right"
+                android:hint="Price"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/out_photo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/out_id"
+                tools:layout_constraintBottom_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Size:"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/out_size"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Size"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/out_photo"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/out_id"
-            tools:layout_constraintBottom_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:layout_height="35dp"
+            android:layout_weight="0.07"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="left"
+                android:inputType="textPersonName"
+                android:text="Size:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.07"
-        android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/out_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="right"
+                android:hint="Size"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/out_photo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/out_id"
+                tools:layout_constraintBottom_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Giới thiệu:"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/out_infor"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Information"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/out_photo"
+            android:layout_height="35dp"
+            android:layout_weight="0.07"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="left"
+                android:inputType="textPersonName"
+                android:text="Giới thiệu:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/out_infor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="right"
+                android:hint="Information"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/out_photo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/out_id"
+                tools:layout_constraintBottom_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_addtocart"
+            android:layout_width="203dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="#4286f4"
+            android:text="Thêm vào giỏ hàng"
+            android:textColor="#ffffff"
+            android:theme="@style/Widget.AppCompat.Button.Borderless.Colored"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/out_id"
-            tools:layout_constraintBottom_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1" />
-
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_addtocart"
-        android:layout_width="203dp"
-        android:layout_height="48dp"
-        android:background="#4286f4"
-        android:text="Thêm vào giỏ hàng"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
 </LinearLayout>

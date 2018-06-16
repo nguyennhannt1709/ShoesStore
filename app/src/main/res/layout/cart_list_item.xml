@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:layout_margin="4dp"
     android:background="#bbd9ed"
     android:orientation="horizontal"
@@ -36,7 +35,6 @@
         <TextView
             android:id="@+id/tv_shoename"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:layout_marginTop="3dp"
@@ -72,10 +70,7 @@
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="TextView"
-
-
                 android:textColor="#3f62ff"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -98,7 +93,9 @@
         android:id="@+id/btn_del"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:textColor="#ffffff"
         android:text="x"
+        android:background="@android:color/holo_red_light"
         android:textAlignment="center"
         android:textSize="10sp" />
 

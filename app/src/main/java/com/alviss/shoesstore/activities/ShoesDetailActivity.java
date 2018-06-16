@@ -29,6 +29,8 @@ public class ShoesDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shoes_detail);
+        setTitle(getIntent().getStringExtra("NAME"));
+
         TextView name = (TextView) findViewById(R.id.out_shoesname);
         TextView shop = (TextView) findViewById(R.id.out_shopname);
         TextView price = (TextView) findViewById(R.id.out_price);
@@ -38,7 +40,7 @@ public class ShoesDetailActivity extends AppCompatActivity {
         String sizetemp = new String();
         sizetemp = getIntent().getStringExtra("SIZE");
         List<String> sizes = new ArrayList<String>();
-        sizes.add(" ");
+        sizes.add(" - ");
         List<String> temp = Arrays.asList(sizetemp.split("\\s+"));
         sizes.addAll(temp);
         ArrayAdapter<String> sizeadapter = new ArrayAdapter<String>(this,R.layout.size_item,sizes);
@@ -56,7 +58,7 @@ public class ShoesDetailActivity extends AppCompatActivity {
         addcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (size.getSelectedItem().toString().equals(" ")){
+                if (size.getSelectedItem().toString().equals(" - ")){
                     Toast.makeText(ShoesDetailActivity.this,"Chưa chọn size cần mua",Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -68,6 +70,7 @@ public class ShoesDetailActivity extends AppCompatActivity {
                     MySession.lpic.add(getIntent().getStringExtra("IMAGE"));
                     MySession.sum+=Integer.valueOf(getIntent().getStringExtra("PRICE").toString());
                     Toast.makeText(ShoesDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });

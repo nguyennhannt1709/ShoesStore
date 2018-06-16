@@ -1,6 +1,7 @@
 package com.alviss.shoesstore.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,12 +39,20 @@ public class CartActivity extends Activity implements Recheck {
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MySession.count==0) {
-                    Toast.makeText(CartActivity.this,"Giỏ hàng của bạn chưa có sản phẩm",Toast.LENGTH_SHORT).show();
+                if (MySession.count < 1) {
+                    //MARK:_ Alert
+                    new AlertDialog.Builder(CartActivity.this)
+                            .setTitle("Ops!")
+                            .setMessage("Please choose something to checkout")
+                            .setPositiveButton("Okay", null)
+                            .show();
+
+                    return;
                 }
                 else {
                     Intent intent = new Intent(CartActivity.this, PayBillActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -58,7 +67,7 @@ public class CartActivity extends Activity implements Recheck {
         MySession.lpic.remove(t);
         MySession.lname.remove(t);
         MySession.count--;
-        MySession.sum-= Integer.valueOf(MySession.lprice.get(t));
+        MySession.sum -= Integer.valueOf(MySession.lprice.get(t));
         summ.setText(String.valueOf(MySession.sum));
         MySession.lprice.remove(t);
 
