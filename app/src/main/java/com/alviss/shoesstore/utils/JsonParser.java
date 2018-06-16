@@ -1,8 +1,5 @@
 package com.alviss.shoesstore.utils;
 
-/**
- * Created by ADJ on 8/9/2017.
- */
 
 import org.json.JSONArray;
 import org.json.JSONException;

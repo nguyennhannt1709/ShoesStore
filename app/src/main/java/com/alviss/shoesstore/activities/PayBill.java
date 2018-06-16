@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.models.KhachHang;
 import com.alviss.shoesstore.utils.MySession;
 
 import org.json.JSONObject;
@@ -39,15 +40,15 @@ import static com.alviss.shoesstore.utils.Configuration2.KEY_BSUM;
  * Created by Alviss on 5/29/2018.
  */
 
-public class PayBill extends AppCompatActivity {
+public class PayBill extends BaseActivity {
     private EditText bname;
     private EditText bphone;
     private EditText badd;
     private EditText bmail;
-    String bName;
-    String bPhone;
-    String bAdd;
-    String bMail;
+    public static String bName;
+    public static String bPhone;
+    public static String bAdd;
+    public static String bMail;
     String bContent="";
     String bSum;
     @Override
@@ -68,6 +69,7 @@ public class PayBill extends AppCompatActivity {
                 bPhone = bphone.getText().toString();
                 bAdd = badd.getText().toString();
                 bMail = bmail.getText().toString();
+
                 for (int i = 0; i< MySession.count; i++){
                     bContent= bContent+MySession.lid.get(i).toString()+" "+MySession.lname.get(i).toString()+" "+MySession.lsize.get(i).toString()+" "+MySession.lprice.get(i).toString()+"\n";
                 }
@@ -85,6 +87,8 @@ public class PayBill extends AppCompatActivity {
                 Toast.makeText(PayBill.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PayBill.this, MainActivity.class);
                 startActivity(intent);
+
+                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
             }
         });
 

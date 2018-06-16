@@ -1,18 +1,28 @@
 package com.alviss.shoesstore.activities;
 
 import android.app.ProgressDialog;
+import android.content.ContentProvider;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.adapter.ShoesListAdapter;
+import com.alviss.shoesstore.models.HangHoa;
+import com.alviss.shoesstore.models.KhachHang;
 import com.alviss.shoesstore.utils.JsonParser;
 import com.alviss.shoesstore.utils.MySession;
 import com.android.volley.DefaultRetryPolicy;
@@ -22,6 +32,10 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static com.alviss.shoesstore.utils.Configuration.LIST_SHOES_URL;
 
@@ -45,9 +59,10 @@ public class MainActivity extends BaseActivity {
         MySession.sum=0;
         }
         listView = (ListView) findViewById(R.id.list_view);
-        sendRequest();
-
-        firebaseDatabase.readTest();
+        //sendRequest();
+        new QueryTask().execute();
+     //   firebaseDatabase.readTest();
+       // firebaseDatabase.getCustomer("123");
     }
 
     @Override
@@ -83,7 +98,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         // Log.e("null","ser image"+response);
-                        showJSON(response);
+                       // showJSON();
 
                         loading.dismiss();
                     }
@@ -107,26 +122,77 @@ public class MainActivity extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void showJSON(String json){
-        JsonParser pj = new JsonParser(json);
-        pj.parseJSON();
-        //Log.e("uImage","ser image"+JsonParser.uImages[1]);
-        final ShoesListAdapter shoesListAdapter = new ShoesListAdapter(MainActivity.this, JsonParser.sIds,JsonParser.sShoenames,JsonParser.sShopnames, JsonParser.sPrices, JsonParser.sSizes, JsonParser.sInfors, JsonParser.sImages);
-        listView.setAdapter(shoesListAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this,ShoesDetail.class);
-                intent.putExtra("ID",shoesListAdapter.getsId(position));
-                intent.putExtra("NAME",shoesListAdapter.getsName(position));
-                intent.putExtra("SHOP",shoesListAdapter.getsShop(position));
-                intent.putExtra("PRICE",shoesListAdapter.getsPrice(position));
-                intent.putExtra("SIZE",shoesListAdapter.getsSize(position));
-                intent.putExtra("INFOR",shoesListAdapter.getsInfor(position));
-                intent.putExtra("IMAGE",shoesListAdapter.getsImage(position));
-                startActivity(intent);
-            }
-        });
+    private void showJSON(ArrayList<HangHoa> arr){
+        HangHoaAdapter hangHoaAdapter = new HangHoaAdapter(arr, MainActivity.this);
+        listView.setAdapter(hangHoaAdapter);
+    }
+
+    public class QueryTask extends AsyncTask<Void, ArrayList<HangHoa>, ArrayList<HangHoa>> {
+
+
+        @Override
+        protected ArrayList<HangHoa> doInBackground(Void... voids) {
+            return firebaseDatabase.getAllsHangHoa();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<HangHoa> hangHoas) {
+            super.onPostExecute(hangHoas);
+            showJSON(hangHoas);
+        }
+    }
+
+    public class HangHoaAdapter extends BaseAdapter {
+        private ArrayList<HangHoa> arr;
+        private Context context;
+
+        public HangHoaAdapter(ArrayList<HangHoa> arr, Context context) {
+            this.arr = arr;
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return arr.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return arr.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            View listViewItem = layoutInflater.inflate(R.layout.shoes_list_item, null);
+
+            TextView textViewName = (TextView) listViewItem.findViewById(R.id.tv_shoename);
+            TextView textViewShop = (TextView) listViewItem.findViewById(R.id.tv_shopname);
+            TextView textViewPrice = (TextView) listViewItem.findViewById(R.id.tv_price);
+            TextView textViewSize = (TextView) listViewItem.findViewById(R.id.tv_size);
+            ImageView iv = (ImageView)listViewItem.findViewById(R.id.img_icon);
+
+            textViewName.setText(arr.get(position).getMNAME());
+            textViewPrice.setText(arr.get(position).getMPRICE());
+            textViewShop.setText(arr.get(position).getMSHOPNAME());
+            textViewSize.setText(arr.get(position).getMSIZE());
+            Picasso.with(context).load(arr.get(position).getMIMAGE()).into(iv);
+//            Intent intent = new Intent(MainActivity.this,ShoesDetail.class);
+//            intent.putExtra("ID",shoesListAdapter.getsId(position));
+//            intent.putExtra("NAME",shoesListAdapter.getsName(position));
+//            intent.putExtra("SHOP",shoesListAdapter.getsShop(position));
+//            intent.putExtra("PRICE",shoesListAdapter.getsPrice(position));
+//            intent.putExtra("SIZE",shoesListAdapter.getsSize(position));
+//            intent.putExtra("INFOR",shoesListAdapter.getsInfor(position));
+//            intent.putExtra("IMAGE",shoesListAdapter.getsImage(position));
+//            startActivity(intent);
+            return null;
+        }
     }
 
 }
