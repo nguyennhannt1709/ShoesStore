@@ -14,8 +14,18 @@ import android.widget.Toast;
 import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
+import com.alviss.shoesstore.models.SendMailItem;
 import com.alviss.shoesstore.utils.MySession;
+import com.alviss.shoesstore.utils.Util;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -26,7 +36,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -52,10 +64,13 @@ public class PayBillActivity extends BaseActivity {
     public static String bMail;
     String bContent="";
     String bSum;
+    private AlertDialog.Builder alert;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payinfor);
+        alert = new AlertDialog.Builder(PayBillActivity.this);
+        alert.setTitle("Alert!");
         setTitle("Checkout your cart");
 
         bname = (EditText) findViewById(R.id.tv_bname);
@@ -79,7 +94,6 @@ public class PayBillActivity extends BaseActivity {
                             +"\n";
                 }
                 bSum = String.valueOf(MySession.sum);
-                new SendRequest().execute();
 
                 MySession.count=0;
                 MySession.sum=0;
@@ -89,120 +103,62 @@ public class PayBillActivity extends BaseActivity {
                 MySession.lprice.clear();
                 MySession.lpic.clear();
 
+                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
+                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
+
+
+                KhachHang khachHang = new KhachHang(bName,bPhone,bAdd,bMail);
+                new RequestSendMail().execute(khachHang);
+
                 Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
-
-                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
             }
         });
 
     }
-    public class SendRequest extends AsyncTask<String, Void, String> {
 
-
-        protected void onPreExecute(){}
-
-        protected String doInBackground(String... arg0) {
-
-            try{
-                //Change your web app deployed URL or u can use this for attributes (name, country)
-                URL url = new URL("https://script.google.com/macros/s/AKfycby_Feb9KWTHSIqCjWVDjuvsUnLOHcxTAdUltHkIo5Mk81LlPDO9/exec");
-
-                JSONObject postDataParams = new JSONObject();
-
-                //int i;
-                //for(i=1;i<=70;i++)
-
-
-                //    String usn = Integer.toString(i);
-
-                String id= "137x-j-SrRJ1QvfFgpDxvB4Z3ayevcfRwz3QbCt_jm3k";
-
-                postDataParams.put(KEY_BNAME,bName);
-                postDataParams.put(KEY_BPHONE,bPhone);
-                postDataParams.put(KEY_BADD,bAdd);
-                postDataParams.put(KEY_BMAIL,bMail);
-                postDataParams.put(KEY_BCONTENT,bContent);
-                postDataParams.put(KEY_BSUM,bSum);
-                postDataParams.put("id",id);
-
-
-                Log.e("params",postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode=conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line="";
-
-                    while((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                }
-                else {
-                    return new String("false : "+responseCode);
-                }
-            }
-            catch(Exception e){
-                return new String("Exception: " + e.getMessage());
-            }
-        }
+    class RequestSendMail extends AsyncTask<KhachHang, Void, String> {
 
         @Override
-        protected void onPostExecute(String result) {
-           // Toast.makeText(getApplicationContext(), result,Toast.LENGTH_LONG).show();
-
+        protected String doInBackground(KhachHang... khachHangs) {
+            WillBeRequest(khachHangs[0]);
+            return null;
         }
     }
 
-    public String getPostDataString(JSONObject params) throws Exception {
 
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
+    //MARK:_Send mail task
+    public void WillBeRequest(final KhachHang khachHang) {
+        RequestQueue queue = Volley.newRequestQueue(PayBillActivity.this);
 
-        Iterator<String> itr = params.keys();
-
-        while(itr.hasNext()){
-
-            String key= itr.next();
-            Object value = params.get(key);
-
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-        }
-        return result.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Util.sendMailWithModel(Util.ConvertKhachHang2MailModel(khachHang)), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    String status = new JSONObject(response).getString("success");
+                    if (Boolean.parseBoolean(status)) {
+                        Toast.makeText(PayBillActivity.this, "Please check your email:\n "+khachHang.getEmail(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("onResponse", "onResponse: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("onErrorResponse", "onErrorResponse: " + error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("para1", "value1");
+                params.put("para1", "value2");
+                return params;
+            }
+        };
+        queue.add(stringRequest);
     }
 }
