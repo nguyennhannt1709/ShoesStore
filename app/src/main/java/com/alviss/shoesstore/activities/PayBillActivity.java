@@ -26,10 +26,15 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static com.alviss.shoesstore.activities.CartActivity.summ;
 import static com.alviss.shoesstore.utils.Configuration2.KEY_BNAME;
 import static com.alviss.shoesstore.utils.Configuration2.KEY_BPHONE;
 import static com.alviss.shoesstore.utils.Configuration2.KEY_BADD;
@@ -50,8 +55,10 @@ public class PayBillActivity extends BaseActivity {
     public static String bPhone;
     public static String bAdd;
     public static String bMail;
+
     String bContent="";
     String bSum;
+    String Sum;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +95,18 @@ public class PayBillActivity extends BaseActivity {
                 MySession.lsize.clear();
                 MySession.lprice.clear();
                 MySession.lpic.clear();
+                String NgayLapHoaDon;
+                SimpleDateFormat format= new SimpleDateFormat("HH:mm dd-MM-yyyy", Locale.getDefault());
+                Date currentTime = Calendar.getInstance().getTime();
+                NgayLapHoaDon=format.format(currentTime);
+
 
                 Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
-
+                Sum= summ.getText().toString();
                 firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
+                firebaseDatabase.writeHoaDon(new HoaDon( NgayLapHoaDon ,Sum, bPhone));
             }
         });
 

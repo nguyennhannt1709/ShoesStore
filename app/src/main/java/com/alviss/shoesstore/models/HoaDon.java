@@ -3,72 +3,54 @@ package com.alviss.shoesstore.models;
 import java.util.ArrayList;
 
 public class HoaDon extends BaseModel {
-    private String CODEB; //code bill
-    private String BTIME; //ngay bill
-    private String BAMOUNT; //so luong sp trong chi tiet hoa don
-    private String BOFFPE; //phan tram chiet khau
-    private String BOFFPR; //chiet khau
-    private String BPRICE; //tong hoa don
+    private String MaHD;
+    private String NgayLap;
+    private String TongTien;
+    private String MaSDTKhachHang;
 
+    public HoaDon(String maHD, String ngayLap, String tongTien, String maKhachHang) {
 
-    public HoaDon() {
+        MaHD = maHD;
+        NgayLap = ngayLap;
+        TongTien = tongTien;
+        MaSDTKhachHang = maKhachHang;
     }
 
-    public HoaDon(String _id, String CODEB, String BTIME, String BAMOUNT, String BOFFPE, String BOFFPR, String BPRICE) {
-        super(_id);
-        this.CODEB = CODEB;
-        this.BTIME = BTIME;
-        this.BAMOUNT = BAMOUNT;
-        this.BOFFPE = BOFFPE;
-        this.BOFFPR = BOFFPR;
-        this.BPRICE = BPRICE;
+    public HoaDon(String ngayLap, String tongTien, String maKhachHang) {
+        NgayLap = ngayLap;
+        TongTien = tongTien;
+        MaSDTKhachHang = maKhachHang;
     }
 
-    public String getCODEB() {
-        return CODEB;
+    public String getMaHD() {
+        return MaHD;
     }
 
-    public void setCODEB(String CODEB) {
-        this.CODEB = CODEB;
+    public void setMaHD(String maHD) {
+        MaHD = maHD;
     }
 
-    public String getBTIME() {
-        return BTIME;
+    public String getNgayLap() {
+        return NgayLap;
     }
 
-    public void setBTIME(String BTIME) {
-        this.BTIME = BTIME;
+    public void setNgayLap(String ngayLap) {
+        NgayLap = ngayLap;
     }
 
-    public String getBAMOUNT() {
-        return BAMOUNT;
+    public String getTongTien() {
+        return TongTien;
     }
 
-    public void setBAMOUNT(String BAMOUNT) {
-        this.BAMOUNT = BAMOUNT;
+    public void setTongTien(String tongTien) {
+        TongTien = tongTien;
     }
 
-    public String getBOFFPE() {
-        return BOFFPE;
+    public String getMaKhachHang() {
+        return MaSDTKhachHang;
     }
 
-    public void setBOFFPE(String BOFFPE) {
-        this.BOFFPE = BOFFPE;
-    }
-
-    public String getBOFFPR() {
-        return BOFFPR;
-    }
-
-    public void setBOFFPR(String BOFFPR) {
-        this.BOFFPR = BOFFPR;
-    }
-
-    public String getBPRICE() {
-        return BPRICE;
-    }
-
-    public void setBPRICE(String BPRICE) {
-        this.BPRICE = BPRICE;
+    public void setMaKhachHang(String maKhachHang) {
+        MaSDTKhachHang = maKhachHang;
     }
 }

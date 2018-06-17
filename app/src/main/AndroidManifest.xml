@@ -20,7 +20,7 @@
         <activity android:name=".activities.ShoesListActivity" />
         <activity android:name=".activities.ShoesDetailActivity" android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.CartActivity" android:parentActivityName=".activities.MainActivity" />
-        <activity android:name=".activities.PayBillActivity" />
+        <activity android:name=".activities.PayBillActivity" android:parentActivityName=".activities.CartActivity" />
         <activity android:name=".activities.InfoActivity" android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>

@@ -20,6 +20,7 @@ public class FirebaseDatabases {
     public DatabaseReference KhachHang = firebaseDatabase.getReference("KhachHang");
     public DatabaseReference HangHoa = firebaseDatabase.getReference("HangHoa");
     public DatabaseReference HoaDon = firebaseDatabase.getReference("HoaDon");
+    public DatabaseReference ChiTietHoaDon = firebaseDatabase.getReference("ChiTietHoaDon");
 
 
     public void writeTest() {
@@ -59,8 +60,22 @@ public class FirebaseDatabases {
         HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new KhachHang((dataSnapshot.getChildrenCount() + 1)+"",
-                        "","","",""));
+                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new HoaDon((dataSnapshot.getChildrenCount() + 1)+"",
+                        item.getNgayLap(),item.getTongTien(),item.getMaKhachHang()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void writeChiTietHoaDon(final HoaDon item) {
+        HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new HoaDon((dataSnapshot.getChildrenCount() + 1)+"",
+                        item.getNgayLap(),item.getTongTien(),item.getMaKhachHang()));
             }
 
             @Override
