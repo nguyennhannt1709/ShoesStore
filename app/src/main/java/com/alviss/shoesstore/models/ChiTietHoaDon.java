@@ -8,13 +8,27 @@ public class ChiTietHoaDon extends BaseModel {
     private String GiaBan;
     private String MaHD;
 
-    public ChiTietHoaDon(String _id, String maCTHD, String maSP, String soLuong, String giaBan, String maHD) {
-        super(_id);
+    public String getMaHD() {
+        return MaHD;
+    }
+
+    public void setMaHD(String maHD) {
+        MaHD = maHD;
+    }
+
+    public ChiTietHoaDon(String maCTHD, String maSP, String soLuong, String giaBan, String maHD) {
+
         MaCTHD = maCTHD;
         MaSP = maSP;
         SoLuong = soLuong;
         GiaBan = giaBan;
         MaHD = maHD;
+    }
+
+
+
+
+    public ChiTietHoaDon() {
     }
 
     public String getMaCTHD() {

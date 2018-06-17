@@ -3,6 +3,7 @@ package com.alviss.shoesstore.utils;
 import android.util.Log;
 
 import com.alviss.shoesstore.models.BaseModel;
+import com.alviss.shoesstore.models.ChiTietHoaDon;
 import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
@@ -70,12 +71,12 @@ public class FirebaseDatabases {
             }
         });
     }
-    public void writeChiTietHoaDon(final HoaDon item) {
+    public void writeChiTietHoaDon(final com.alviss.shoesstore.models.ChiTietHoaDon item) {
         HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new HoaDon((dataSnapshot.getChildrenCount() + 1)+"",
-                        item.getNgayLap(),item.getTongTien(),item.getMaKhachHang()));
+                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new ChiTietHoaDon((dataSnapshot.getChildrenCount() + 1)+"",
+                        item.getMaSP(),item.getSoLuong(),item.getGiaBan(), item.getMaHD()));
             }
 
             @Override

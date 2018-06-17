@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.models.ChiTietHoaDon;
+import com.alviss.shoesstore.models.KhachHang;
 import com.alviss.shoesstore.utils.MySession;
 import com.squareup.picasso.Picasso;
 
@@ -24,6 +26,7 @@ import java.util.List;
 
 public class ShoesDetailActivity extends BaseActivity {
     Spinner size;
+    public static ArrayList<ChiTietHoaDon> arrChiTietHoaDon =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class ShoesDetailActivity extends BaseActivity {
                     Toast.makeText(ShoesDetailActivity.this,"Chưa chọn size cần mua",Toast.LENGTH_SHORT).show();
                 }
                 else{
+
                     MySession.count++;
                     MySession.lid.add(getIntent().getStringExtra("ID"));
                     MySession.lname.add(getIntent().getStringExtra("NAME"));
@@ -71,7 +75,11 @@ public class ShoesDetailActivity extends BaseActivity {
                     MySession.sum+=Integer.valueOf(getIntent().getStringExtra("PRICE").toString());
                     Toast.makeText(ShoesDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                     finish();
+
                 }
+
+                ChiTietHoaDon cthd=new ChiTietHoaDon("",getIntent().getStringExtra("ID"),"1",getIntent().getStringExtra("PRICE"),"");
+                arrChiTietHoaDon.add(cthd);
             }
         });
 
