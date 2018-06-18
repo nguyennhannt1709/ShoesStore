@@ -1,10 +1,10 @@
 package com.alviss.shoesstore.activities;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +15,6 @@ import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
-import com.alviss.shoesstore.models.SendMailItem;
 import com.alviss.shoesstore.utils.MySession;
 import com.alviss.shoesstore.utils.Util;
 import com.android.volley.AuthFailureError;
@@ -32,29 +31,17 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
+import static com.alviss.shoesstore.activities.CartActivity.summ;
 
-import static com.alviss.shoesstore.utils.Configuration2.KEY_BNAME;
-import static com.alviss.shoesstore.utils.Configuration2.KEY_BPHONE;
-import static com.alviss.shoesstore.utils.Configuration2.KEY_BADD;
-import static com.alviss.shoesstore.utils.Configuration2.KEY_BMAIL;
-import static com.alviss.shoesstore.utils.Configuration2.KEY_BCONTENT;
-import static com.alviss.shoesstore.utils.Configuration2.KEY_BSUM;
 
 /**
  * Created by Alviss on 5/29/2018.
@@ -69,8 +56,10 @@ public class PayBillActivity extends BaseActivity {
     public static String bPhone;
     public static String bAdd;
     public static String bMail;
+
     String bContent="";
     String bSum;
+    String Sum;
     private AlertDialog.Builder alert;
     private List<HangHoa> hangHoas;
     @Override
@@ -112,16 +101,23 @@ public class PayBillActivity extends BaseActivity {
                 MySession.lsize.clear();
                 MySession.lprice.clear();
                 MySession.lpic.clear();
+                String NgayLapHoaDon;
+                SimpleDateFormat format= new SimpleDateFormat("HH:mm dd-MM-yyyy", Locale.getDefault());
+                Date currentTime = Calendar.getInstance().getTime();
+                NgayLapHoaDon=format.format(currentTime);
+
 
                 firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-//                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
                 new FirebaseLogBill().execute(new HoaDon(new Date().getTime() + "",MySession.count+1 + "",bSum,"0","0", hangHoas));
+
 
                 KhachHang khachHang = new KhachHang(bName,bPhone,bAdd,bMail);
                 new RequestSendMail().execute(khachHang);
 
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
+                Sum= summ.getText().toString();
+                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
             }
         });
 

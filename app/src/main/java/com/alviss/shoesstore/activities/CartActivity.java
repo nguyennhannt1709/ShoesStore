@@ -21,7 +21,7 @@ import com.alviss.shoesstore.adapter.CartListAdapter;
 
 public class CartActivity extends BaseActivity implements Recheck {
 
-    TextView summ;
+    public static TextView summ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
