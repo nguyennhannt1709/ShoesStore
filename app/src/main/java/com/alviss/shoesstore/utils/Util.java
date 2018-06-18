@@ -19,7 +19,7 @@ public class Util {
 
     public Util() { }
 
-    public static SendMailItem ConvertKhachHang2MailModel(KhachHang khachHang) {
+    public static SendMailItem  ConvertKhachHang2MailModel(KhachHang khachHang) {
 
         SendMailItem item = new SendMailItem(
                 "Xác nhận đơn hàng Shoes Store "+ new Date().getTime(),
