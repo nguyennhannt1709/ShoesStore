@@ -48,10 +48,9 @@ public class Util {
                 khachHang.getEmail(),
                 "<body>\n" +
                         "<h1>Ban co don hang can xu ly</h1>\n" +
+                        "Ten khach hang: " + khachHang.getTenKhachHang()+ "</p><br>"+
                         "<b>Dia chi khach hang "+khachHang.getDiaChi()+",</b><br>\n" +
                         "<p>So dien thoai khach hang la: "+khachHang.getSoDienThoai()+"<br>\n" +
-                        "Email khach hang: " + khachHang.getEmail()+ "</p><br>"+
-                        "<a href=\"http://demo8257742.mockable.io/activate_success\">Activate</a><br><br>\n" +
                         "<img width=\"200\" height=\"200\"  src=\"http://channel.mediacdn.vn/thumb_w/640/prupload/164/2017/08/img20170815150115496.jpg\"/><br>\n" +
                         "<br><br>\n" +
                         "<i>Please don't reply this email.</i>\n" +

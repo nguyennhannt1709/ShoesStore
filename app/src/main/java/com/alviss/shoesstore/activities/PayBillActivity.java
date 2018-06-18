@@ -21,11 +21,6 @@ import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
-<<<<<<< HEAD
-import com.alviss.shoesstore.models.UserItem;
-=======
-import com.alviss.shoesstore.models.NotificationItem;
->>>>>>> 2f835f722d84a2408e5cec73ca12c201538993c5
 import com.alviss.shoesstore.utils.MySession;
 import com.alviss.shoesstore.utils.Util;
 import com.android.volley.AuthFailureError;
@@ -38,7 +33,6 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -123,7 +117,6 @@ public class PayBillActivity extends BaseActivity {
                 sendNotification("Shoes Store","Đơn hàng đã gửi thành công");
 
                 new RequestSendMail().execute(khachHang);
-                new RequestSendMail2().execute();
 
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -139,10 +132,10 @@ public class PayBillActivity extends BaseActivity {
         @Override
         protected String doInBackground(KhachHang... khachHangs) {
             WillBeRequest(khachHangs[0]);
+            new RequestSendMail2().execute(new KhachHang(khachHangs[0].getTenKhachHang(),khachHangs[0].getSoDienThoai(),khachHangs[0].getDiaChi(),"ahihi12345678912345678@gmail.com"));
             return null;
         }
     }
-
 
     //MARK:_Send mail task
     public void WillBeRequest2(final KhachHang khachHang) {
@@ -154,9 +147,6 @@ public class PayBillActivity extends BaseActivity {
             public void onResponse(String response) {
                 try {
                     String status = new JSONObject(response).getString("success");
-                    if (Boolean.parseBoolean(status)) {
-                        Toast.makeText(PayBillActivity.this, "Please check your email:\n "+khachHang.getEmail(), Toast.LENGTH_SHORT).show();
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -178,12 +168,11 @@ public class PayBillActivity extends BaseActivity {
         };
         queue.add(stringRequest);
     }
-<<<<<<< HEAD
     class RequestSendMail2 extends AsyncTask<KhachHang, Void, String> {
 
         @Override
         protected String doInBackground(KhachHang... khachHangs) {
-            WillBeRequest2(new KhachHang("", "","", "ahihi12345678912345678@gmail.com"));
+            WillBeRequest2(khachHangs[0]);
             return null;
         }
     }
@@ -200,7 +189,7 @@ public class PayBillActivity extends BaseActivity {
                 try {
                     String status = new JSONObject(response).getString("success");
                     if (Boolean.parseBoolean(status)) {
-                       // Toast.makeText(PayBillActivity.this, "Please check your email:\n "+khachHang.getEmail(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(PayBillActivity.this, "Please check your email:\n "+khachHang.getEmail(), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -212,7 +201,7 @@ public class PayBillActivity extends BaseActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("onErrorResponse", "onErrorResponse: " + error.getMessage());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<>();
@@ -222,7 +211,7 @@ public class PayBillActivity extends BaseActivity {
             }
         };
         queue.add(stringRequest);
-=======
+    }
 
     //MARK:_Log bill
     public class FirebaseLogBill extends AsyncTask<HoaDon, Void, Void> {
@@ -293,6 +282,5 @@ public class PayBillActivity extends BaseActivity {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
->>>>>>> 2f835f722d84a2408e5cec73ca12c201538993c5
     }
 }
