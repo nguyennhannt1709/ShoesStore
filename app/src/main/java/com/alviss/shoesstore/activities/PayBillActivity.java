@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alviss.shoesstore.R;
+import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
 import com.alviss.shoesstore.models.SendMailItem;
@@ -24,6 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,8 +40,11 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -65,6 +72,7 @@ public class PayBillActivity extends BaseActivity {
     String bContent="";
     String bSum;
     private AlertDialog.Builder alert;
+    private List<HangHoa> hangHoas;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +90,16 @@ public class PayBillActivity extends BaseActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                hangHoas = new ArrayList<>();
                 bName=bname.getText().toString();
                 bPhone = bphone.getText().toString();
                 bAdd = badd.getText().toString();
                 bMail = bmail.getText().toString();
 
                 for (int i = 0; i< MySession.count; i++){
-                    bContent= bContent+MySession.lid.get(i).toString()+" "+MySession.lname.get(i).toString()+" "+MySession.lsize.get(i).toString()+" "+
+                    hangHoas.add(new HangHoa(MySession.lid.get(i),MySession.lname.get(i),"Shoes Store",MySession.lprice.get(i),MySession.lsize.get(i),"",MySession.lpic.get(i)));
+
+                    bContent= bContent + MySession.lid.get(i).toString() + " " + MySession.lname.get(i).toString() + " " + MySession.lsize.get(i).toString() + " " +
                             MySession.lprice.get(i).toString()
                             +"\n";
                 }
@@ -104,13 +114,12 @@ public class PayBillActivity extends BaseActivity {
                 MySession.lpic.clear();
 
                 firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
-
+//                firebaseDatabase.writeHoaDon(new HoaDon("","","","","","",""));
+                new FirebaseLogBill().execute(new HoaDon(new Date().getTime() + "",MySession.count+1 + "",bSum,"0","0", hangHoas));
 
                 KhachHang khachHang = new KhachHang(bName,bPhone,bAdd,bMail);
                 new RequestSendMail().execute(khachHang);
 
-                Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -160,5 +169,34 @@ public class PayBillActivity extends BaseActivity {
             }
         };
         queue.add(stringRequest);
+    }
+
+    //MARK:_Log bill
+    public class FirebaseLogBill extends AsyncTask<HoaDon, Void, Void> {
+
+        @Override
+        protected Void doInBackground(final HoaDon... hoaDons) {
+            firebaseDatabase.HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    firebaseDatabase.HoaDon.child(count + 1 +"")
+                            .setValue(hoaDons[0]);
+                    Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
+        }
     }
 }

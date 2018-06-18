@@ -1,74 +1,81 @@
 package com.alviss.shoesstore.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HoaDon extends BaseModel {
-    private String CODEB; //code bill
-    private String BTIME; //ngay bill
-    private String BAMOUNT; //so luong sp trong chi tiet hoa don
-    private String BOFFPE; //phan tram chiet khau
-    private String BOFFPR; //chiet khau
-    private String BPRICE; //tong hoa don
 
+    private String dateString;
+    private String quantity;
+    private String price;
+    private String discount;
+    private String percentDiscount;
+    private List<HangHoa> hangHoa;
 
-    public HoaDon() {
-    }
-
-    public HoaDon(String _id, String CODEB, String BTIME, String BAMOUNT, String BOFFPE, String BOFFPR, String BPRICE) {
+    public HoaDon(String _id, String dateString, String quantity, String price, String discount, String percentDiscount, List<HangHoa> hangHoa) {
         super(_id);
-        this.CODEB = CODEB;
-        this.BTIME = BTIME;
-        this.BAMOUNT = BAMOUNT;
-        this.BOFFPE = BOFFPE;
-        this.BOFFPR = BOFFPR;
-        this.BPRICE = BPRICE;
+        this.dateString = dateString;
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+        this.percentDiscount = percentDiscount;
+        this.hangHoa = hangHoa;
     }
 
-    public String getCODEB() {
-        return CODEB;
+    public HoaDon(String dateString, String quantity, String price, String discount, String percentDiscount, List<HangHoa> hangHoa) {
+        this.dateString = dateString;
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+        this.percentDiscount = percentDiscount;
+        this.hangHoa = hangHoa;
     }
 
-    public void setCODEB(String CODEB) {
-        this.CODEB = CODEB;
+    public String getDateString() {
+        return dateString;
     }
 
-    public String getBTIME() {
-        return BTIME;
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
     }
 
-    public void setBTIME(String BTIME) {
-        this.BTIME = BTIME;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public String getBAMOUNT() {
-        return BAMOUNT;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
-    public void setBAMOUNT(String BAMOUNT) {
-        this.BAMOUNT = BAMOUNT;
+    public String getPrice() {
+        return price;
     }
 
-    public String getBOFFPE() {
-        return BOFFPE;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public void setBOFFPE(String BOFFPE) {
-        this.BOFFPE = BOFFPE;
+    public String getDiscount() {
+        return discount;
     }
 
-    public String getBOFFPR() {
-        return BOFFPR;
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 
-    public void setBOFFPR(String BOFFPR) {
-        this.BOFFPR = BOFFPR;
+    public String getPercentDiscount() {
+        return percentDiscount;
     }
 
-    public String getBPRICE() {
-        return BPRICE;
+    public void setPercentDiscount(String percentDiscount) {
+        this.percentDiscount = percentDiscount;
     }
 
-    public void setBPRICE(String BPRICE) {
-        this.BPRICE = BPRICE;
+    public List<HangHoa> getHangHoa() {
+        return hangHoa;
+    }
+
+    public void setHangHoa(List<HangHoa> hangHoa) {
+        this.hangHoa = hangHoa;
     }
 }
