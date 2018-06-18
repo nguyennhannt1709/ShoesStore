@@ -1,8 +1,6 @@
 package com.alviss.shoesstore.models;
 
-/**
- * Created by nguyennhan on 6/17/18.
- */
+
 
 public class SendMailItem {
 

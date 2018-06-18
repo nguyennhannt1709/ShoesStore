@@ -1,8 +1,6 @@
 package com.alviss.shoesstore.adapter;
 
-/**
- * Created by ADJ on 8/8/2017.
- */
+
 
 
 import android.app.Activity;

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 
+import com.alviss.shoesstore.models.BaseModel;
 import com.alviss.shoesstore.models.KhachHang;
 import com.alviss.shoesstore.models.SendMailItem;
 
@@ -12,26 +13,44 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-/**
- * Created by nguyennhan on 6/17/18.
- */
+
 
 public class Util {
 
     public Util() { }
 
-    //MARK:_To Nam: Config mail send
     public static SendMailItem ConvertKhachHang2MailModel(KhachHang khachHang) {
+
+        SendMailItem item = new SendMailItem(
+                "Xác nhận đơn hàng Shoes Store "+ new Date().getTime(),
+                "admin@shoesstore.vn",
+                "Shoes Store",
+                    khachHang.getEmail(),
+                "<body>\n" +
+                        "<h1>Confirm your infomation</h1>\n" +
+                        "<b>Dear "+khachHang.getTenKhachHang()+",</b><br>\n" +
+                        "<p>Your phone number is "+khachHang.getSoDienThoai()+"<br>\n" +
+                        "Your address: " + khachHang.getDiaChi()+ "</p><br>"+
+                        "<a href=\"http://demo8257742.mockable.io/activate_success\">Activate</a><br><br>\n" +
+                        "<img width=\"200\" height=\"200\"  src=\"http://channel.mediacdn.vn/thumb_w/640/prupload/164/2017/08/img20170815150115496.jpg\"/><br>\n" +
+                        "<br><br>\n" +
+                        "<i>Please don't reply this email.</i>\n" +
+                        "\n" +
+                        "</body>");
+        return item;
+    }
+    public static SendMailItem ConvertKhachHang2MailModelTwo(KhachHang khachHang) {
+
         SendMailItem item = new SendMailItem(
                 "Xác nhận đơn hàng Shoes Store "+ new Date().getTime(),
                 "admin@shoesstore.vn",
                 "Shoes Store",
                 khachHang.getEmail(),
                 "<body>\n" +
-                        "<h1>Confirm your infomation</h1>\n" +
-                        "<b>Dear "+khachHang.getTenKhachHang()+",</b><br>\n" +
-                        "<p>Your phone number is "+khachHang.getSoDienThoai()+"<br>\n" +
-                        "Your address: " + khachHang.getDiaChi()+ "</p><br>"+
+                        "<h1>Ban co don hang can xu ly</h1>\n" +
+                        "<b>Dia chi khach hang "+khachHang.getDiaChi()+",</b><br>\n" +
+                        "<p>So dien thoai khach hang la: "+khachHang.getSoDienThoai()+"<br>\n" +
+                        "Email khach hang: " + khachHang.getEmail()+ "</p><br>"+
                         "<a href=\"http://demo8257742.mockable.io/activate_success\">Activate</a><br><br>\n" +
                         "<img width=\"200\" height=\"200\"  src=\"http://channel.mediacdn.vn/thumb_w/640/prupload/164/2017/08/img20170815150115496.jpg\"/><br>\n" +
                         "<br><br>\n" +

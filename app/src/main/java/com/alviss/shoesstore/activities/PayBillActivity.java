@@ -15,6 +15,7 @@ import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.models.ChiTietHoaDon;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
+import com.alviss.shoesstore.models.UserItem;
 import com.alviss.shoesstore.utils.MySession;
 import com.alviss.shoesstore.utils.Util;
 import com.android.volley.AuthFailureError;
@@ -38,9 +39,7 @@ import java.util.Map;
 import static com.alviss.shoesstore.activities.CartActivity.summ;
 import static com.alviss.shoesstore.activities.ShoesDetailActivity.arrChiTietHoaDon;
 
-/**
- * Created by Alviss on 5/29/2018.
- */
+
 
 public class PayBillActivity extends BaseActivity {
     private EditText bname;
@@ -105,6 +104,7 @@ public class PayBillActivity extends BaseActivity {
 
                 KhachHang khachHang = new KhachHang(bName,bPhone,bAdd,bMail);
                 new RequestSendMail().execute(khachHang);
+                new RequestSendMail2().execute();
 
                 Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
@@ -132,16 +132,61 @@ public class PayBillActivity extends BaseActivity {
 
 
     //MARK:_Send mail task
-    public void WillBeRequest(final KhachHang khachHang) {
+    public void WillBeRequest2(final KhachHang khachHang) {
         RequestQueue queue = Volley.newRequestQueue(PayBillActivity.this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Util.sendMailWithModel(Util.ConvertKhachHang2MailModel(khachHang)), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Util.sendMailWithModel(Util.ConvertKhachHang2MailModelTwo(khachHang)), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     String status = new JSONObject(response).getString("success");
                     if (Boolean.parseBoolean(status)) {
                         Toast.makeText(PayBillActivity.this, "Please check your email:\n "+khachHang.getEmail(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("onResponse", "onResponse: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("onErrorResponse", "onErrorResponse: " + error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("para1", "value1");
+                params.put("para1", "value2");
+                return params;
+            }
+        };
+        queue.add(stringRequest);
+    }
+    class RequestSendMail2 extends AsyncTask<KhachHang, Void, String> {
+
+        @Override
+        protected String doInBackground(KhachHang... khachHangs) {
+            WillBeRequest2(new KhachHang("", "","", "ahihi12345678912345678@gmail.com"));
+            return null;
+        }
+    }
+
+
+    //MARK:_Send mail task
+    public void WillBeRequest(final KhachHang khachHang) {
+        RequestQueue queue = Volley.newRequestQueue(PayBillActivity.this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Util.sendMailWithModel(Util.ConvertKhachHang2MailModel(khachHang)), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    String status = new JSONObject(response).getString("success");
+                    if (Boolean.parseBoolean(status)) {
+                       // Toast.makeText(PayBillActivity.this, "Please check your email:\n "+khachHang.getEmail(), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

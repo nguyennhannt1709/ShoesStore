@@ -1,6 +1,9 @@
 package com.alviss.shoesstore.models;
 
-public class KhachHang extends BaseModel {
+import com.alviss.shoesstore.utils.ProtocolModel;
+import com.alviss.shoesstore.utils.Util;
+
+public class KhachHang extends BaseModel implements ProtocolModel {
     private String TenKhachHang;
     private String SoDienThoai;
     private String DiaChi;

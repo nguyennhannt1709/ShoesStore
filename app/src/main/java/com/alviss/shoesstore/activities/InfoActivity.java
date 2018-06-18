@@ -5,9 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.alviss.shoesstore.R;
 
-/**
- * Created by Alviss on 5/30/2018.
- */
+
 
 public class InfoActivity extends AppCompatActivity {
     @Override

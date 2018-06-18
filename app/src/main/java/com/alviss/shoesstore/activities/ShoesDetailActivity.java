@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Alviss on 5/27/2018.
- */
+
 
 public class ShoesDetailActivity extends BaseActivity {
     Spinner size;

@@ -1,8 +1,6 @@
 package com.alviss.shoesstore.utils;
 
-/**
- * Created by ADJ on 8/9/2017.
- */
+
 
 public class Configuration {
 

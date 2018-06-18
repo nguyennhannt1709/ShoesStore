@@ -56,7 +56,7 @@ public class FirebaseDatabases {
     }
 
 
-    //MARK:To Nam_ please mapping this function
+
     public void writeHoaDon(final HoaDon item) {
         HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

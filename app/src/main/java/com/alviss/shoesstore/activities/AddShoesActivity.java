@@ -1,8 +1,5 @@
 package com.alviss.shoesstore.activities;
 
-/**
- * Created by ADJ on 8/7/2017.
- */
 
 
 import android.app.ProgressDialog;

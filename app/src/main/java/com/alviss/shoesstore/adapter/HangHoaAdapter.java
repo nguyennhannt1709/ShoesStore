@@ -16,9 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by nguyennhan on 6/17/18.
- */
+
 
 public class HangHoaAdapter extends BaseAdapter {
     private ArrayList<HangHoa> arr = new ArrayList<>();

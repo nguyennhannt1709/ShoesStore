@@ -15,9 +15,7 @@ import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.utils.Recheck;
 import com.alviss.shoesstore.adapter.CartListAdapter;
 
-/**
- * Created by Alviss on 5/29/2018.
- */
+
 
 public class CartActivity extends BaseActivity implements Recheck {
 
