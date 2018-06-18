@@ -5,30 +5,33 @@ import java.util.List;
 
 public class HoaDon extends BaseModel {
 
-    private String dateString;
-    private String quantity;
-    private String price;
-    private String discount;
-    private String percentDiscount;
-    private List<HangHoa> hangHoa;
+    public String dateString;
+    public String quantity;
+    public String price;
+    public String discount;
+    public String percentDiscount;
+    public List<HangHoa> products;
+    public KhachHang customer;
 
-    public HoaDon(String _id, String dateString, String quantity, String price, String discount, String percentDiscount, List<HangHoa> hangHoa) {
+    public HoaDon(String _id, String dateString, String quantity, String price, String discount, String percentDiscount, List<HangHoa> products, KhachHang customer) {
         super(_id);
         this.dateString = dateString;
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
         this.percentDiscount = percentDiscount;
-        this.hangHoa = hangHoa;
+        this.products = products;
+        this.customer = customer;
     }
 
-    public HoaDon(String dateString, String quantity, String price, String discount, String percentDiscount, List<HangHoa> hangHoa) {
+    public HoaDon(String dateString, String quantity, String price, String discount, String percentDiscount, List<HangHoa> products, KhachHang customer) {
         this.dateString = dateString;
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
         this.percentDiscount = percentDiscount;
-        this.hangHoa = hangHoa;
+        this.products = products;
+        this.customer = customer;
     }
 
     public String getDateString() {
@@ -71,65 +74,19 @@ public class HoaDon extends BaseModel {
         this.percentDiscount = percentDiscount;
     }
 
-    public List<HangHoa> getHangHoa() {
-        return hangHoa;
+    public List<HangHoa> getProducts() {
+        return products;
     }
 
-    public void setHangHoa(List<HangHoa> hangHoa) {
-        this.hangHoa = hangHoa;
+    public void setProducts(List<HangHoa> products) {
+        this.products = products;
     }
 
+    public KhachHang getCustomer() {
+        return customer;
+    }
 
-//=======
-//    private String MaHD;
-//    private String NgayLap;
-//    private String TongTien;
-//    private String MaSDTKhachHang;
-//
-//    public HoaDon(String maHD, String ngayLap, String tongTien, String maKhachHang) {
-//
-//        MaHD = maHD;
-//        NgayLap = ngayLap;
-//        TongTien = tongTien;
-//        MaSDTKhachHang = maKhachHang;
-//    }
-//
-//    public HoaDon(String ngayLap, String tongTien, String maKhachHang) {
-//        NgayLap = ngayLap;
-//        TongTien = tongTien;
-//        MaSDTKhachHang = maKhachHang;
-//    }
-//
-//    public String getMaHD() {
-//        return MaHD;
-//    }
-//
-//    public void setMaHD(String maHD) {
-//        MaHD = maHD;
-//    }
-//
-//    public String getNgayLap() {
-//        return NgayLap;
-//    }
-//
-//    public void setNgayLap(String ngayLap) {
-//        NgayLap = ngayLap;
-//    }
-//
-//    public String getTongTien() {
-//        return TongTien;
-//    }
-//
-//    public void setTongTien(String tongTien) {
-//        TongTien = tongTien;
-//    }
-//
-//    public String getMaKhachHang() {
-//        return MaSDTKhachHang;
-//    }
-//
-//    public void setMaKhachHang(String maKhachHang) {
-//        MaSDTKhachHang = maKhachHang;
-//>>>>>>> fb44c878767b7179fb5580283072a31e3a3dbf37
-//    }
+    public void setCustomer(KhachHang customer) {
+        this.customer = customer;
+    }
 }

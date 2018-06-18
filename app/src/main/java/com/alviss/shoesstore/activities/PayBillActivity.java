@@ -1,10 +1,16 @@
 package com.alviss.shoesstore.activities;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +21,7 @@ import com.alviss.shoesstore.R;
 import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
+import com.alviss.shoesstore.models.NotificationItem;
 import com.alviss.shoesstore.utils.MySession;
 import com.alviss.shoesstore.utils.Util;
 import com.android.volley.AuthFailureError;
@@ -27,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,18 +114,18 @@ public class PayBillActivity extends BaseActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 NgayLapHoaDon=format.format(currentTime);
 
-
-                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-                new FirebaseLogBill().execute(new HoaDon(new Date().getTime() + "",MySession.count+1 + "",bSum,"0","0", hangHoas));
-
-
                 KhachHang khachHang = new KhachHang(bName,bPhone,bAdd,bMail);
+
+                firebaseDatabase.writeKhachHang(khachHang);
+                new FirebaseLogBill().execute(new HoaDon(new Date().getTime() + "",MySession.count+1 + "",bSum,"0","0", hangHoas, khachHang));
+                sendNotification("Shoes Store","Đơn hàng đã gửi thành công");
+
                 new RequestSendMail().execute(khachHang);
 
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
                 Sum= summ.getText().toString();
-                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
+                firebaseDatabase.writeKhachHang(khachHang);
             }
         });
 
@@ -194,5 +202,47 @@ public class PayBillActivity extends BaseActivity {
             super.onPostExecute(aVoid);
             Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
         }
+    }
+
+//    public class PushNotification extends AsyncTask<NotificationItem, Void, Void> {
+//
+//
+//        @Override
+//        protected Void doInBackground(NotificationItem... notificationItems) {
+//            firebaseMessaging.send(new RemoteMessage.Builder("345793871141" + "@gcm.googleapis.com")
+//                    .setMessageId(Integer.toString((int) new Date().getTime()))
+//                    .addData("_title", notificationItems[0]._title)
+//                    .addData("_content", notificationItems[0]._content)
+//                    .addData("_subject", notificationItems[0]._subject)
+//                    .build());
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//        }
+//    }
+
+    private void sendNotification(String title, String content) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.icon_sneaker_round)
+                .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }

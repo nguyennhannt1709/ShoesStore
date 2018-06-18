@@ -57,20 +57,20 @@ public class FirebaseDatabases {
 
 
     //MARK:To Nam_ please mapping this function
-    public void writeHoaDon(final HoaDon item) {
-        HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new HoaDon((dataSnapshot.getChildrenCount() + 1)+"",
-                        item.getNgayLap(),item.getTongTien(),item.getMaKhachHang()));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    public void writeHoaDon(final HoaDon item) {
+//        HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+////                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new HoaDon((dataSnapshot.getChildrenCount() + 1)+"",
+////                        item.getNgayLap(),item.getTongTien(),item.getMaKhachHang()));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
     public void writeChiTietHoaDon(final com.alviss.shoesstore.models.ChiTietHoaDon item) {
         HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

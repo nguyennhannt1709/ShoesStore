@@ -14,5 +14,6 @@ public class MySession {
     public static List<String> lsize = new ArrayList<String>();
     public static List<String> lprice = new ArrayList<String>();
     public static List<String> lpic = new ArrayList<String>();
+    public static List<String> lshop = new ArrayList<>();
     public static int sum;
 }
