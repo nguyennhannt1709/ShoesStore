@@ -56,6 +56,7 @@ public class FirebaseDatabases {
     }
 
 
+<<<<<<< HEAD
 
     public void writeHoaDon(final HoaDon item) {
         HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -71,6 +72,23 @@ public class FirebaseDatabases {
             }
         });
     }
+=======
+    //MARK:To Nam_ please mapping this function
+//    public void writeHoaDon(final HoaDon item) {
+//        HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+////                HoaDon.child((dataSnapshot.getChildrenCount() + 1)+"").setValue(new HoaDon((dataSnapshot.getChildrenCount() + 1)+"",
+////                        item.getNgayLap(),item.getTongTien(),item.getMaKhachHang()));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+>>>>>>> 2f835f722d84a2408e5cec73ca12c201538993c5
     public void writeChiTietHoaDon(final com.alviss.shoesstore.models.ChiTietHoaDon item) {
         HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

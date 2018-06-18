@@ -68,6 +68,7 @@ public class CartActivity extends BaseActivity implements Recheck {
         MySession.sum -= Integer.valueOf(MySession.lprice.get(t));
         summ.setText(String.valueOf(MySession.sum));
         MySession.lprice.remove(t);
+        MySession.lshop.remove(t);
 
     }
 }

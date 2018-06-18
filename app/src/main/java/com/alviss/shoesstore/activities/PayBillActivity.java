@@ -1,10 +1,16 @@
 package com.alviss.shoesstore.activities;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,10 +18,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alviss.shoesstore.R;
-import com.alviss.shoesstore.models.ChiTietHoaDon;
+import com.alviss.shoesstore.models.HangHoa;
 import com.alviss.shoesstore.models.HoaDon;
 import com.alviss.shoesstore.models.KhachHang;
+<<<<<<< HEAD
 import com.alviss.shoesstore.models.UserItem;
+=======
+import com.alviss.shoesstore.models.NotificationItem;
+>>>>>>> 2f835f722d84a2408e5cec73ca12c201538993c5
 import com.alviss.shoesstore.utils.MySession;
 import com.alviss.shoesstore.utils.Util;
 import com.android.volley.AuthFailureError;
@@ -25,19 +35,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import static com.alviss.shoesstore.activities.CartActivity.summ;
-import static com.alviss.shoesstore.activities.ShoesDetailActivity.arrChiTietHoaDon;
+
 
 
 
@@ -55,6 +71,7 @@ public class PayBillActivity extends BaseActivity {
     String bSum;
     String Sum;
     private AlertDialog.Builder alert;
+    private List<HangHoa> hangHoas;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +89,16 @@ public class PayBillActivity extends BaseActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                hangHoas = new ArrayList<>();
                 bName=bname.getText().toString();
                 bPhone = bphone.getText().toString();
                 bAdd = badd.getText().toString();
                 bMail = bmail.getText().toString();
 
                 for (int i = 0; i< MySession.count; i++){
-                    bContent= bContent+MySession.lid.get(i).toString()+" "+MySession.lname.get(i).toString()+" "+MySession.lsize.get(i).toString()+" "+
+                    hangHoas.add(new HangHoa(MySession.lid.get(i),MySession.lname.get(i),"Shoes Store",MySession.lprice.get(i),MySession.lsize.get(i),"",MySession.lpic.get(i)));
+
+                    bContent= bContent + MySession.lid.get(i).toString() + " " + MySession.lname.get(i).toString() + " " + MySession.lsize.get(i).toString() + " " +
                             MySession.lprice.get(i).toString()
                             +"\n";
                 }
@@ -97,25 +116,19 @@ public class PayBillActivity extends BaseActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 NgayLapHoaDon=format.format(currentTime);
 
-
-                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-               // firebaseDatabase.writeHoaDon(new HoaDon("","","","","","","","","","","",""));
-
-
                 KhachHang khachHang = new KhachHang(bName,bPhone,bAdd,bMail);
+
+                firebaseDatabase.writeKhachHang(khachHang);
+                new FirebaseLogBill().execute(new HoaDon(new Date().getTime() + "",MySession.count+1 + "",bSum,"0","0", hangHoas, khachHang));
+                sendNotification("Shoes Store","Đơn hàng đã gửi thành công");
+
                 new RequestSendMail().execute(khachHang);
                 new RequestSendMail2().execute();
 
-                Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(intent);
                 Sum= summ.getText().toString();
-                firebaseDatabase.writeKhachHang(new KhachHang(bName,bPhone,bAdd,bMail));
-                firebaseDatabase.writeHoaDon(new HoaDon( NgayLapHoaDon ,Sum, bPhone));
-                for(ChiTietHoaDon cthd:arrChiTietHoaDon){
-
-                    firebaseDatabase.writeChiTietHoaDon(new ChiTietHoaDon("", cthd.getMaSP(), cthd.getSoLuong(), cthd.getGiaBan(), bPhone));
-                }
+                firebaseDatabase.writeKhachHang(khachHang);
             }
         });
 
@@ -165,6 +178,7 @@ public class PayBillActivity extends BaseActivity {
         };
         queue.add(stringRequest);
     }
+<<<<<<< HEAD
     class RequestSendMail2 extends AsyncTask<KhachHang, Void, String> {
 
         @Override
@@ -208,5 +222,77 @@ public class PayBillActivity extends BaseActivity {
             }
         };
         queue.add(stringRequest);
+=======
+
+    //MARK:_Log bill
+    public class FirebaseLogBill extends AsyncTask<HoaDon, Void, Void> {
+
+        @Override
+        protected Void doInBackground(final HoaDon... hoaDons) {
+            firebaseDatabase.HoaDon.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    firebaseDatabase.HoaDon.child(count + 1 +"")
+                            .setValue(hoaDons[0]);
+                    Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(PayBillActivity.this, "Đơn hàng của bạn đã được lưu\nChúng tôi sẽ liên lạc sớm nhất", Toast.LENGTH_LONG).show();
+        }
+    }
+
+//    public class PushNotification extends AsyncTask<NotificationItem, Void, Void> {
+//
+//
+//        @Override
+//        protected Void doInBackground(NotificationItem... notificationItems) {
+//            firebaseMessaging.send(new RemoteMessage.Builder("345793871141" + "@gcm.googleapis.com")
+//                    .setMessageId(Integer.toString((int) new Date().getTime()))
+//                    .addData("_title", notificationItems[0]._title)
+//                    .addData("_content", notificationItems[0]._content)
+//                    .addData("_subject", notificationItems[0]._subject)
+//                    .build());
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//        }
+//    }
+
+    private void sendNotification(String title, String content) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.icon_sneaker_round)
+                .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+>>>>>>> 2f835f722d84a2408e5cec73ca12c201538993c5
     }
 }

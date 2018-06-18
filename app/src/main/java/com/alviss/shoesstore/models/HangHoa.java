@@ -8,7 +8,7 @@ public class HangHoa extends BaseModel {
     private String CODEM;//code sp
     private String MNAME;//ten
     private String MSHOPNAME;//ten
-   private String MSUM ; //tong sl 1 mat hang
+    private String MSUM ; //tong sl 1 mat hang
     private String MSELL; //con ban hay ko(0,1)
     private String MBUY; //gia mua vao
     private String MPRICE; //gia ban ra
